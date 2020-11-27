@@ -5,13 +5,14 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int user_bh            = 24;       /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = { "Ubuntu Mono:antialias=true:size=10" };
 static const char dmenufont[]       = "Ubuntu Mono:antialias=true:size=10";
 
 /* Color scheme */
-static const char col_thinkpad[]    = "#e1140a"
-static const char col_white[]       = "#ffffff"
-static const char col_black[]       = "#000000"
+static const char col_thinkpad[]    = "#e1140a";
+static const char col_white[]       = "#ffffff";
+static const char col_black[]       = "#000000";
 
 static const char *colors[][3]      = {
 	[SchemeNorm] = { col_white,     col_black,     col_black },
@@ -44,7 +45,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
