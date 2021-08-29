@@ -21,6 +21,7 @@ static const char color_yellow[] = "#e2e210";
 static const char color_purple[] = "#bc3fbc";
 static const char color_cyan[]   = "#29b7da";
 static const char color_gray[]   = "#666666";
+
 static const char *colors[][3]      = {
 	/*               fg           bg          border   */
 	[SchemeNorm] = { color_light, color_dark, color_gray },
