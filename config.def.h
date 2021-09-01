@@ -79,10 +79,10 @@ static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufon
 static const char *termcmd[]    = { "alacritty", NULL };
 static const char *xicmd[]      = { "xbacklight", "+5%", NULL };
 static const char *xdcmd[]      = { "xbacklight", "-5%", NULL };
-static const char *vucmd[]      = { "pactl", "set-sink-volume", "0", "+5%",    NULL };
-static const char *vdcmd[]      = { "pactl", "set-sink-volume", "0", "-5%",    NULL };
-static const char *vmcmd[]      = { "pactl", "set-sink-mute",   "0", "toggle", NULL };
-static const char *micmutecmd[] = { "pactl", "set-source-mute", "0", "toggle", NULL };
+static const char *vucmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@",   "+5%",    NULL };
+static const char *vdcmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@",   "-5%",    NULL };
+static const char *vmcmd[]      = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@",   "toggle", NULL };
+static const char *micmutecmd[] = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key                       function        argument */
