@@ -3,11 +3,11 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int snap      = 24;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int user_bh            = 32;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 24;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:medium:size=10", "Material Design Icons-Regular:size=10" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:style:medium:size=10";
 
@@ -29,10 +29,10 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
-static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "WEB", "DEV", "FUN", "GAMING", "CHAT"};
+static const char *tagsalt[] = { "1", "2", "3", "4", "5" };
 
-static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinepad	= 3;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
@@ -44,7 +44,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           -1 },
 };
 
 /* layout(s) */
@@ -75,10 +75,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", color_dark, "-nf", color_light, "-sb", color_red, "-sf", color_light, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
-static const char *xicmd[] = { "xbacklight", "+5%", NULL };
-static const char *xdcmd[] = { "xbacklight", "-5%", NULL };
+static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", color_dark, "-nf", color_light, "-sb", color_green, "-sf", color_dark, "-p", "RUN:", NULL };
+static const char *termcmd[]    = { "alacritty", NULL };
+static const char *xicmd[]      = { "xbacklight", "+5%", NULL };
+static const char *xdcmd[]      = { "xbacklight", "-5%", NULL };
+static const char *vucmd[]      = { "pactl", "set-sink-volume", "0", "+5%",    NULL };
+static const char *vdcmd[]      = { "pactl", "set-sink-volume", "0", "-5%",    NULL };
+static const char *vmcmd[]      = { "pactl", "set-sink-mute",   "0", "toggle", NULL };
+static const char *micmutecmd[] = { "pactl", "set-source-mute", "0", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key                       function        argument */
@@ -110,15 +114,19 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period,                tagmon,         {.i = +1 } },
   { 0,                            XF86XK_MonBrightnessUp,   spawn,          {.v = xicmd } },
   { 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = xdcmd } },
+  { 0,                            XF86XK_AudioRaiseVolume,  spawn,          {.v = vucmd } },
+  { 0,                            XF86XK_AudioLowerVolume,  spawn,          {.v = vdcmd } },
+  { 0,                            XF86XK_AudioMute,         spawn,          {.v = vmcmd } },
+  { 0,                            XF86XK_AudioMicMute,      spawn,          {.v = micmutecmd } },
 	TAGKEYS(                        XK_1,                                     0)
 	TAGKEYS(                        XK_2,                                     1)
 	TAGKEYS(                        XK_3,                                     2)
 	TAGKEYS(                        XK_4,                                     3)
 	TAGKEYS(                        XK_5,                                     4)
-	TAGKEYS(                        XK_6,                                     5)
-	TAGKEYS(                        XK_7,                                     6)
-	TAGKEYS(                        XK_8,                                     7)
-	TAGKEYS(                        XK_9,                                     8)
+	// TAGKEYS(                        XK_6,                                     5)
+	// TAGKEYS(                        XK_7,                                     6)
+	// TAGKEYS(                        XK_8,                                     7)
+	// TAGKEYS(                        XK_9,                                     8)
 	{ MODKEY|ShiftMask,             XK_q,                     quit,           {0} },
 };
 
