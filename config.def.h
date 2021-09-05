@@ -7,6 +7,8 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 24;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int horizpadbar        = 4;        /* horizontal padding for statusbar */
+static const int vertpadbar         = 8;        /* vertical padding for statusbar */
 static const int user_bh            = 24;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:medium:size=10", "Material Design Icons-Regular:size=10" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:style:medium:size=10";
