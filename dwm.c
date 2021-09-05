@@ -794,7 +794,7 @@ drawstatusbar(Monitor *m, int bh, char* stext, int stw) {
 	char *text;
 	char *p;
 
-	len = strlen(stext) + 1 ;
+	len = strlen(stext) + 1;
 	if (!(text = (char*) malloc(sizeof(char)*len)))
 		die("malloc");
 	p = text;
@@ -831,7 +831,7 @@ drawstatusbar(Monitor *m, int bh, char* stext, int stw) {
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
 	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
 	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
-	drw_rect(drw, x, 0, w, bh, 1, 1);
+	drw_rect(drw, x - stw, 0, w, bh, 1, 1);
 	x++;
 
 	/* process status text */
@@ -904,12 +904,13 @@ drawbar(Monitor *m)
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
-  if(showsystray && m == systraytomon(m))
+  if(showsystray && m == systraytomon(m)) {
     stw = getsystraywidth();
+    /* draw status first so it can be overdrawn by tags later */
+    if (m == selmon) /* status is only drawn on selected monitor */
+      tw = m->ww - drawstatusbar(m, bh, stext, stw);
+  }
 
-  /* draw status first so it can be overdrawn by tags later */
-  if (m == selmon) /* status is only drawn on selected monitor */
-    tw = m->ww - drawstatusbar(m, bh, stext, stw);
 
   resizebarwin(m);
 	for (c = m->clients; c; c = c->next) {
