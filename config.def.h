@@ -3,7 +3,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx       = 2;        /* border pixel of windows */
+static const unsigned int borderpx       = 4;        /* border pixel of windows */
 static const unsigned int snap           = 24;       /* snap pixel */
 static const unsigned int systraypinning = 0;        /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft  = 0;   	   /* 0: systray in the right corner, >0: systray on left of status text */
@@ -14,6 +14,11 @@ static const int showbar                 = 1;        /* 0 means no bar */
 static const int topbar                  = 1;        /* 0 means bottom bar */
 static const int horizpadbar             = 4;        /* horizontal padding for statusbar */
 static const int vertpadbar              = 8;        /* vertical padding for statusbar */
+static const unsigned int gappih         = 16;       /* horiz inner gap between windows */
+static const unsigned int gappiv         = 16;       /* vert inner gap between windows */
+static const unsigned int gappoh         = 16;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov         = 16;       /* vert outer gap between windows and screen edge */
+static const int smartgaps               = 0;        /* 1 means no outer gap when there is only one window */
 static const int user_bh                 = 24;       /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]               = { "JetBrainsMono Nerd Font:style:medium:size=10", "Material Design Icons-Regular:size=10" };
 static const char dmenufont[]            = "JetBrainsMono Nerd Font:style:medium:size=10";
@@ -32,7 +37,7 @@ static const char color_gray[]   = "#666666";
 static const char *colors[][3]      = {
 	/*               fg           bg          border   */
 	[SchemeNorm] = { color_light, color_dark, color_gray },
-	[SchemeSel]  = { color_red,   color_dark, color_red },
+	[SchemeSel]  = { color_red,   color_dark, color_green },
 };
 
 /* tagging */
@@ -102,6 +107,22 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,                     incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,                     setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,                     setmfact,       {.f = +0.05} },
+	{ MODKEY|Mod1Mask,              XK_h,                     incrgaps,       {.i = +4 } },
+	{ MODKEY|Mod1Mask,              XK_l,                     incrgaps,       {.i = -4 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_h,                     incrogaps,      {.i = +4 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_l,                     incrogaps,      {.i = -4 } },
+	{ MODKEY|Mod1Mask|ControlMask,  XK_h,                     incrigaps,      {.i = +4 } },
+	{ MODKEY|Mod1Mask|ControlMask,  XK_l,                     incrigaps,      {.i = -4 } },
+	{ MODKEY|Mod1Mask,              XK_0,                     togglegaps,     {0} },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,                     defaultgaps,    {0} },
+	{ MODKEY,                       XK_y,                     incrihgaps,     {.i = +4 } },
+	{ MODKEY,                       XK_o,                     incrihgaps,     {.i = -4 } },
+	{ MODKEY|ControlMask,           XK_y,                     incrivgaps,     {.i = +4 } },
+	{ MODKEY|ControlMask,           XK_o,                     incrivgaps,     {.i = -4 } },
+	{ MODKEY|Mod1Mask,              XK_y,                     incrohgaps,     {.i = +4 } },
+	{ MODKEY|Mod1Mask,              XK_o,                     incrohgaps,     {.i = -4 } },
+	{ MODKEY|ShiftMask,             XK_y,                     incrovgaps,     {.i = +4 } },
+	{ MODKEY|ShiftMask,             XK_o,                     incrovgaps,     {.i = -4 } },
   { MODKEY,                       XK_Right,                 shiftview,      {.i = +1 }},
   { MODKEY,                       XK_Left,                  shiftview,      {.i = -1 }},
 	{ MODKEY,                       XK_Return,                zoom,           {0} },
