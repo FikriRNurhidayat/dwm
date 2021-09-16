@@ -95,10 +95,12 @@ static const char *vucmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@"
 static const char *vdcmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@",   "-5%",    NULL };
 static const char *vmcmd[]      = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@",   "toggle", NULL };
 static const char *micmutecmd[] = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
+static const char *readcmd[]    = { "consume-article", NULL };
 
 static Key keys[] = {
 	/* modifier                     key                       function        argument */
 	{ MODKEY,                       XK_p,                     spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,                     spawn,          {.v = readcmd } },
 	{ MODKEY|ShiftMask,             XK_Return,                spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,                     togglebar,      {0} },
 	{ MODKEY,                       XK_j,                     focusstack,     {.i = +1 } },
