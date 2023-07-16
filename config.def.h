@@ -14,8 +14,8 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 8;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 8;        /* vertical padding for statusbar */
-static const char *fonts[]          = { "Iosveka Term:size=10:antialias=true:hinting=true" };
-static const char dmenufont[]       = "Iosveka Term:size=10:antialias=true:hinting=true";
+static const char *fonts[]          = { "Iosevka Term:size=10:antialias=true:hinting=true" };
+static const char dmenufont[]       = "Iosevka Term:size=10:antialias=true:hinting=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -68,13 +68,13 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
-static const char *editorcmd[] = { "emacsclient", "-c", NULL };
-static const char *volupcmd[] = { "sh", "-c", "$HOME/.scripts/volume up" };
-static const char *voldowncmd[] = { "sh", "-c", "$HOME/.scripts/volume down" };
-static const char *volmutecmd[] = { "sh", "-c", "$HOME/.scripts/volume mute" };
-static const char *blupcmd[] = { "sh", "-c", "$HOME/.scripts/backlight up" };
-static const char *bldowncmd[] = { "sh", "-c", "$HOME/.scripts/backlight down" };
-static const char *screenshotcmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/screenshot" };
+static const char *editorcmd[] = { "emacsclient", "-nc", NULL };
+static const char *volupcmd[] = { "sh", "-c", "$HOME/.scripts/volume up", NULL };
+static const char *voldowncmd[] = { "sh", "-c", "$HOME/.scripts/volume down", NULL };
+static const char *volmutecmd[] = { "sh", "-c", "$HOME/.scripts/volume mute", NULL };
+static const char *blupcmd[] = { "sh", "-c", "$HOME/.scripts/backlight up", NULL };
+static const char *bldowncmd[] = { "sh", "-c", "$HOME/.scripts/backlight down", NULL, };
+static const char *screenshotcmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/screenshot", NULL };
 static const char *browsercmd[] = { "sh", "-c", "firefox" };
 
 static const Key keys[] = {
