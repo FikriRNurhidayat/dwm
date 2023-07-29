@@ -41,20 +41,20 @@ static const Rule rules[] = {
 	/* class             instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",            NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",         NULL,       NULL,       1 << 8,       0,           -1 },
-  { "TelegramDesktop", NULL, NULL,      9,            0,           -1  },
+  { "TelegramDesktop", NULL,       NULL,       8,            0,           -1  },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
+static const int nmaster     = 1;    /* number of clients in masppter area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",      tile },    /* first entry is default */
-	{ "",      NULL },    /* no layout function means floating behavior */
-	{ "",      monocle },
+	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
 };
 
 /* key definitions */
@@ -79,7 +79,7 @@ static const char *volmutecmd[] = { "sh", "-c", "$HOME/.scripts/volume mute", NU
 static const char *blupcmd[] = { "sh", "-c", "$HOME/.scripts/backlight up", NULL };
 static const char *bldowncmd[] = { "sh", "-c", "$HOME/.scripts/backlight down", NULL, };
 static const char *screenshotcmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/screenshot", NULL };
-static const char *browsercmd[] = { "sh", "-c", "firefox" };
+static const char *browsercmd[] = { "sh", "-c", "librewolf" };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -87,6 +87,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = editorcmd } },
   { MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
+  { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.config/dmenu/scripts/power") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
