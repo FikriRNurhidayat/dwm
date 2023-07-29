@@ -11,6 +11,8 @@ static const int horizpadbar        = 16;        /* horizontal padding for statu
 static const int vertpadbar         = 16;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "Iosevka Aile:size=10:antialias=true:hinting=true:style=medium", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
 static const char dmenufont[]       = "Iosevka Aile:size=10:antialias=true:hinting=true";
+static const char dmenuvertpad[]    = "16";
+static const char dmenulines[]      = "4";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -57,7 +59,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-p", "Run:", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-vp", dmenuvertpad, "-c", "-l", dmenulines, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *editorcmd[] = { "emacsclient", "-c", NULL };
 
