@@ -7,31 +7,27 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int horizpadbar        = 8;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 8;        /* vertical padding for statusbar */
-static const char *fonts[]          = { "Iosveka Term:size=10:antialias=true:hinting=true" };
-static const char dmenufont[]       = "Iosveka Term:size=10:antialias=true:hinting=true";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+static const int horizpadbar        = 16;        /* horizontal padding for statusbar */
+static const int vertpadbar         = 16;        /* vertical padding for statusbar */
+static const char *fonts[]          = { "Iosevka Aile:size=10:antialias=true:hinting=true:style=medium", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
+static const char dmenufont[]       = "Iosevka Aile:size=10:antialias=true:hinting=true";
+static char normbgcolor[]           = "#222222";
+static char normbordercolor[]       = "#444444";
+static char normfgcolor[]           = "#bbbbbb";
+static char selfgcolor[]            = "#eeeeee";
+static char selbordercolor[]        = "#005577";
+static char selbgcolor[]            = "#005577";
+static char *colors[][3] = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "dev", "www", "comm", "game" };
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
@@ -61,23 +57,16 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *editorcmd[] = { "emacsclient", "-c", NULL };
-static const char *volupcmd[] = { "sh", "-c", "$HOME/.scripts/volume up" };
-static const char *voldowncmd[] = { "sh", "-c", "$HOME/.scripts/volume down" };
-static const char *volmutecmd[] = { "sh", "-c", "$HOME/.scripts/volume mute" };
-static const char *blupcmd[] = { "sh", "-c", "$HOME/.scripts/backlight up" };
-static const char *bldowncmd[] = { "sh", "-c", "$HOME/.scripts/backlight down" };
-static const char *screenshotcmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/screenshot" };
-static const char *browsercmd[] = { "sh", "-c", "firefox" };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = editorcmd } },
-  { MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
+  { MODKEY,                       XK_b,      spawn,          SHCMD("librewolf") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -99,12 +88,13 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
   { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
-	{ 0,                            XF86XK_AudioMute,          spawn, {.v = volmutecmd } },
-	{ 0,                            XF86XK_AudioLowerVolume,   spawn, {.v = voldowncmd } },
-	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, {.v = volupcmd   } },
-	{ 0,                            XF86XK_MonBrightnessDown,  spawn, {.v = bldowncmd } },
-	{ 0,                            XF86XK_MonBrightnessUp,    spawn, {.v = blupcmd   } },
-  { 0,                            XK_Print,                  spawn, {.v = screenshotcmd   } },
+	{ 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.scripts/volume mute")    },
+	{ 0,                            XF86XK_AudioLowerVolume,   spawn, SHCMD("$HOME/.scripts/volume down")    },
+	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, SHCMD("$HOME/.scripts/volume up")      },
+	{ 0,                            XF86XK_MonBrightnessDown,  spawn, SHCMD("$HOME/.scripts/backlight down") },
+	{ 0,                            XF86XK_MonBrightnessUp,    spawn, SHCMD("$HOME/.scripts/backlight up")   },
+  { 0,                            XK_Print,                  spawn, SHCMD(".config/dmenu/scripts/screenshot")    },
+	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
