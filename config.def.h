@@ -3,7 +3,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -93,8 +93,10 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-p", "Run:", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-vp", dmenuvertpad, "-c", "-l", dmenulines, NULL };
-static const char *termcmd[]  = { "kitty", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-p", "run ", "-vp", dmenuvertpad, "-c", "-l", dmenulines, NULL };
+static const char *powermenucmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/power", NULL };
+static const char *ssmenucmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/screenshot", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *editorcmd[] = { "emacsclient", "-c", NULL };
 
 static const Key keys[] = {
@@ -103,6 +105,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = editorcmd } },
   { MODKEY,                       XK_b,      spawn,          SHCMD("librewolf") },
+  { MODKEY,                       XK_v,      spawn,          SHCMD("st -e pulsemixer") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -122,14 +125,15 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+  { MODKEY,                       XK_Escape, spawn,           {.v = powermenucmd } },
 	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
-  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
+  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.scripts/volume mute")    },
 	{ 0,                            XF86XK_AudioLowerVolume,   spawn, SHCMD("$HOME/.scripts/volume down")    },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, SHCMD("$HOME/.scripts/volume up")      },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn, SHCMD("$HOME/.scripts/backlight down") },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn, SHCMD("$HOME/.scripts/backlight up")   },
-  { 0,                            XK_Print,                  spawn, SHCMD(".config/dmenu/scripts/screenshot")    },
+  { 0,                            XK_Print,                  spawn, { .v = ssmenucmd } },
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
