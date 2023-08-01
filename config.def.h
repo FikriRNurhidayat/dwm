@@ -61,7 +61,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "dev", "www", "chat", "game", "media" };
+static const char *tags[] = { "一 ", "二", "三", "四", "五" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
@@ -76,7 +76,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "",      tile },    /* first entry is default */
+	{ "",      tile },    /* first entry is default */
 	{ "",      NULL },    /* no layout function means floating behavior */
 	{ "",      monocle },
 };
