@@ -98,7 +98,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-p", "run ", "-vp", dmenuvertpad
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.config/dwm/scripts/launch") },
+	{ MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.config/dmenu/scripts/launch") },
   { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          SHCMD("st") },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("emacsclient -nc") },
