@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/X.h>
 #include <X11/XF86keysym.h>
 
 /* appearance */
@@ -60,7 +61,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "dev", "www", "com", "game" };
+static const char *tags[] = { "dev", "www", "chat", "game", "media" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
@@ -94,16 +95,13 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "run ", "-vp", dmenuvertpad, "-c", "-l", dmenulines, NULL };
-static const char *powermenucmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/power", NULL };
-static const char *ssmenucmd[] = { "sh", "-c", "$HOME/.config/dmenu/scripts/screenshot", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *editorcmd[] = { "emacsclient", "-c", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_e,      spawn,          {.v = editorcmd } },
+	{ MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.config/dwm/scripts/launch") },
+  { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
+	{ MODKEY,                       XK_Return, spawn,          SHCMD("st") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("emacsclient -nc") },
   { MODKEY,                       XK_b,      spawn,          SHCMD("librewolf") },
   { MODKEY,                       XK_v,      spawn,          SHCMD("st -e pulsemixer") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
@@ -125,7 +123,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-  { MODKEY,                       XK_Escape, spawn,           {.v = powermenucmd } },
+  { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.config/dmenu/scripts/power") },
 	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
   { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.scripts/volume mute")    },
@@ -133,7 +131,7 @@ static const Key keys[] = {
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, SHCMD("$HOME/.scripts/volume up")      },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn, SHCMD("$HOME/.scripts/backlight down") },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn, SHCMD("$HOME/.scripts/backlight up")   },
-  { 0,                            XK_Print,                  spawn, { .v = ssmenucmd } },
+  { 0,                            XK_Print,                  spawn, SHCMD("$HOME/.config/dmenu/scripts/screenshot") },
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
@@ -152,7 +150,7 @@ static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          SHCMD("st") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
