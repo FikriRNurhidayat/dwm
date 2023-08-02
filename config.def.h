@@ -125,6 +125,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
   { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.config/dmenu/scripts/power") },
+  { MODKEY|ShiftMask,             XK_m,      spawn,          SHCMD("$HOME/.scripts/monitor-attach") },
+  { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("$HOME/.scripts/monitor-detach") },
 	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
   { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.scripts/volume mute")    },
