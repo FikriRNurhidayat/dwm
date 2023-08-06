@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=dwm
+Comment=Dynamic window manager
+Exec=dwm
+Type=Application
+Keywords=windowmanager;tiling
+Terminal=false
