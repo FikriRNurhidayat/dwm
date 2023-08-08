@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=dwm
 Comment=Dynamic window manager
-Exec=dwm
+Exec=dwm-start
 Type=Application
 Keywords=windowmanager;tiling
 Terminal=false

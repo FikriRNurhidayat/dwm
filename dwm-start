@@ -1,0 +1,9 @@
+#!/bin/sh
+
+xinitrc=$HOME/.xinitrc
+
+if [ -f $xinitrc ]; then
+    $xinitrc
+fi
+
+exec dwm
