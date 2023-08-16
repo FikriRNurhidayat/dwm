@@ -11,8 +11,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 16;       /* horizontal padding for statusbar */
 static const int vertpadbar         = 16;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "Iosevka Aile:size=10:antialias=true:hinting=true:style=medium", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
-static const char dmenufont[]       = "Iosevka Aile:size=10:antialias=true:hinting=true";
+static const char *fonts[]          = { "Iosevka Aile:size=8:antialias=true:hinting=true:style=Regular", "Symbols Nerd Font Mono:size=8:style=Regular:antialias=true:hinting=true" };
 static const char dmenuvertpad[]    = "16";
 static const char dmenulines[]      = "4";
 static char normbgcolor[]           = "#222222";
