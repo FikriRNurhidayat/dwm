@@ -10,7 +10,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 16;       /* horizontal padding for statusbar */
-static const int vertpadbar         = 16;       /* vertical padding for statusbar */
+static const int vertpadbar         = 32;       /* vertical padding for statusbar */
 static const char *fonts[]          = { "Iosevka Aile:size=8:antialias=true:hinting=true:style=Regular", "Symbols Nerd Font Mono:size=8:style=Regular:antialias=true:hinting=true" };
 static const char dmenuvertpad[]    = "16";
 static const char dmenulines[]      = "4";
