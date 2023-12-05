@@ -11,7 +11,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 16;       /* horizontal padding for statusbar */
 static const int vertpadbar         = 32;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "Iosevka Aile:size=8:antialias=true:hinting=true:style=Regular", "Symbols Nerd Font Mono:size=8:style=Regular:antialias=true:hinting=true" };
+static const char *fonts[]          = { "IBM Plex Mono:size=8:antialias=true:hinting=true:style=Regular", "Symbols Nerd Font Mono:size=8:style=Regular:antialias=true:hinting=true" };
 static const char dmenuvertpad[]    = "16";
 static const char dmenulines[]      = "4";
 static char normbgcolor[]           = "#222222";
@@ -105,8 +105,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.config/dmenu/scripts/launch") },
   { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          SHCMD("st") },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("emacsclient -nc") },
-  { MODKEY,                       XK_b,      spawn,          SHCMD("librewolf") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("$HOME/.scripts/emacs-launch") },
+  { MODKEY,                       XK_b,      spawn,          SHCMD("thorium-browser") },
   { MODKEY,                       XK_v,      spawn,          SHCMD("st -e pulsemixer") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -130,6 +130,8 @@ static const Key keys[] = {
   { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.config/dmenu/scripts/power") },
   { MODKEY|ShiftMask,             XK_m,      spawn,          SHCMD("$HOME/.scripts/monitor-attach") },
   { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("$HOME/.scripts/monitor-detach") },
+  { MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD("$HOME/.scripts/monitor-60") },
+  { MODKEY|ShiftMask,             XK_v,      spawn,          SHCMD("$HOME/.scripts/monitor-240") },
 	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
   { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.scripts/volume mute")    },
