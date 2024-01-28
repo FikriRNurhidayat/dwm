@@ -11,7 +11,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 16;       /* horizontal padding for statusbar */
 static const int vertpadbar         = 32;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "IBM Plex Mono:size=8:antialias=true:hinting=true:style=Regular", "Symbols Nerd Font Mono:size=8:style=Regular:antialias=true:hinting=true" };
+static const char *fonts[]          = { "IBM Plex Mono:size=10:antialias=true:hinting=true:style=Bold", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
 static const char dmenuvertpad[]    = "16";
 static const char dmenulines[]      = "4";
 static char normbgcolor[]           = "#222222";
@@ -57,15 +57,16 @@ static char *termcolor[] = {
   termcol14,
   termcol15,
 };
+
 static char *colors[][3] = {
-       /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-       [SchemeDorm]  = { dormfgcolor,  dormbgcolor,  dormbordercolor  },
+  /*               fg           bg           border   */
+  [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+  [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+  [SchemeDorm]  = { dormfgcolor,  dormbgcolor,  dormbordercolor  },
 };
 
 /* tagging */
-static const char *tags[] = { "一 ", "二", "三", "四", "五" };
+static const char *tags[] = { "火", "水", "調", "塵" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
@@ -101,70 +102,59 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-p", " ", "-vp", dmenuvertpad, "-c", "-l", dmenulines, NULL };
 
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.config/dmenu/scripts/launch") },
+  /* modifier                     key        function        argument */
+  { MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-launch") },
+  { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-power") },
+  { 0,                            XK_Print,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
   { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          SHCMD("st") },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("$HOME/.scripts/emacs-launch") },
-  { MODKEY,                       XK_b,      spawn,          SHCMD("thorium-browser") },
-  { MODKEY,                       XK_v,      spawn,          SHCMD("st -e pulsemixer") },
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY|Mod1Mask,              XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|Mod1Mask,              XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY|Mod1Mask,              XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-  { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.config/dmenu/scripts/power") },
-  { MODKEY|ShiftMask,             XK_m,      spawn,          SHCMD("$HOME/.scripts/monitor-attach") },
-  { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("$HOME/.scripts/monitor-detach") },
-  { MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD("$HOME/.scripts/monitor-60") },
-  { MODKEY|ShiftMask,             XK_v,      spawn,          SHCMD("$HOME/.scripts/monitor-240") },
-	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
-  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
-	{ 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.scripts/volume mute")    },
-	{ 0,                            XF86XK_AudioLowerVolume,   spawn, SHCMD("$HOME/.scripts/volume down")    },
-	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, SHCMD("$HOME/.scripts/volume up")      },
-	{ 0,                            XF86XK_MonBrightnessDown,  spawn, SHCMD("$HOME/.scripts/backlight down") },
-	{ 0,                            XF86XK_MonBrightnessUp,    spawn, SHCMD("$HOME/.scripts/backlight up")   },
-  { 0,                            XK_Print,                  spawn, SHCMD("$HOME/.config/dmenu/scripts/screenshot") },
-	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
+  { MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
+  { MODKEY,                       XK_e,      spawn,          SHCMD("$VISUAL") },
+  { MODKEY,                       XK_b,      spawn,          SHCMD("$BROWSER") },
+  { MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+  { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+  { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+  { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+  { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+  { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+  { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+  { MODKEY,                       XK_Tab,    view,           {0} },
+  { MODKEY,                       XK_q,      killclient,     {0} },
+  { MODKEY|Mod1Mask,              XK_t,      setlayout,      {.v = &layouts[0]} },
+  { MODKEY|Mod1Mask,              XK_f,      setlayout,      {.v = &layouts[1]} },
+  { MODKEY|Mod1Mask,              XK_m,      setlayout,      {.v = &layouts[2]} },
+  { MODKEY,                       XK_f,      togglefullscr,  {0} },
+  { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+  { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+  { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+  { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+  { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+  { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+  { MODKEY|ControlMask,           XK_q,      quit,           {1} },
+  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
+  { 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl mute")    },
+  { 0,                            XF86XK_AudioLowerVolume,   spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl down")    },
+  { 0,                            XF86XK_AudioRaiseVolume,   spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl up")      },
+  { 0,                            XF86XK_MonBrightnessDown,  spawn, SHCMD("$HOME/.local/share/desktop-scripts/backlightctl down") },
+  { 0,                            XF86XK_MonBrightnessUp,    spawn, SHCMD("$HOME/.local/share/desktop-scripts/backlightctl up")   },
+  { MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
+  TAGKEYS(                        XK_1,                      0)
+  TAGKEYS(                        XK_2,                      1)
+  TAGKEYS(                        XK_3,                      2)
+  TAGKEYS(                        XK_4,                      3)
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkStatusText,        0,              Button2,        spawn,          SHCMD("st") },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+  /* click                event mask      button          function        argument */
+  { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+  { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+  { ClkStatusText,        0,              Button2,        spawn,          SHCMD("$TERMINAL") },
+  { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+  { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+  { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+  { ClkTagBar,            0,              Button1,        view,           {0} },
+  { ClkTagBar,            0,              Button3,        toggleview,     {0} },
+  { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+  { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
