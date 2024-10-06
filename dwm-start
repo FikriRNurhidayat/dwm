@@ -14,4 +14,10 @@ for file in $HOME/.config/environment.d/*.conf; do
     fi
 done
 
+if command -v picom >/dev/null 2>&1; then
+    pkill picom && picom -b
+else
+    echo "Picom is not installed."
+fi
+
 exec dwm
