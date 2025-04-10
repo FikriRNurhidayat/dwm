@@ -11,7 +11,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 16;       /* horizontal padding for statusbar */
 static const int vertpadbar         = 32;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "IBM Plex Mono:size=10:antialias=true:hinting=true:style=Bold", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
+static const char *fonts[]          = { "JetBrains Mono:size=10:antialias=true:hinting=true:style=Bold", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
 static const char dmenuvertpad[]    = "16";
 static const char dmenulines[]      = "4";
 static char normbgcolor[]           = "#222222";
@@ -106,6 +106,7 @@ static const Key keys[] = {
   { MODKEY,                       XK_space,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-launch") },
   { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-power") },
   { 0,                            XK_Print,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
+  { MODKEY,                       XK_p,      spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
   { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
   { MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
   { MODKEY,                       XK_e,      spawn,          SHCMD("$VISUAL") },
