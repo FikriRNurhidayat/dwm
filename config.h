@@ -11,7 +11,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 16;       /* horizontal padding for statusbar */
 static const int vertpadbar         = 32;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "JetBrains Mono:size=10:antialias=true:hinting=true:style=Bold", "Symbols Nerd Font Mono:size=10:style=Regular:antialias=true:hinting=true" };
+static const char *fonts[]          = { "monospace:size=11:antialias=true:hinting=true:style=Bold", "Symbols Nerd Font Mono:size=11:style=Regular:antialias=true:hinting=true" };
 static const char dmenuvertpad[]    = "16";
 static const char dmenulines[]      = "4";
 static char normbgcolor[]           = "#222222";
@@ -71,6 +71,7 @@ static const char *tags[] = { "火", "水", "調", "塵" };
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ NULL,       NULL,       NULL,       0,            False,       -1 },
+  { "imv",      NULL,       NULL,       1,            True,        -1 }
 };
 
 /* layout(s) */
@@ -107,6 +108,7 @@ static const Key keys[] = {
   { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-power") },
   { 0,                            XK_Print,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
   { MODKEY,                       XK_p,      spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
+  { MODKEY,                       XK_w,      spawn,          SHCMD("$HOME/.local/share/desktop-scripts/wifi") },
   { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
   { MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
   { MODKEY,                       XK_e,      spawn,          SHCMD("$VISUAL") },
@@ -130,7 +132,7 @@ static const Key keys[] = {
   { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
   { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-  { MODKEY|ControlMask,           XK_q,      quit,           {1} },
+  { MODKEY|ShiftMask,             XK_c,      quit,           {1} },
   { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
   { 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl mute")    },
   { 0,                            XF86XK_AudioLowerVolume,   spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl down")    },
