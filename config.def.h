@@ -5,7 +5,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 32;        /* gaps between windows */
+static const unsigned int gappx     = 0;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -71,7 +71,12 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "火", "水", "調", "塵" };
+static const char *tags[] = {
+  "火",
+  "木",
+  "土",
+  "金",
+};
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
@@ -87,9 +92,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "瓦",      tile },    /* first entry is default */
-	{ "泛",      NULL },    /* no layout function means floating behavior */
-	{ "堆",      monocle },
+	{ "ロ",      tile },    /* first entry is default */
+	{ "フ",      NULL },    /* no layout function means floating behavior */
+	{ "ス",      monocle },
 };
 
 /* key definitions */
@@ -113,8 +118,7 @@ static const Key keys[] = {
   { MODKEY,                       XK_Escape, spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-power") },
   { 0,                            XK_Print,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
   { MODKEY,                       XK_p,      spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-screenshot") },
-  { MODKEY,                       XK_w,      spawn,          SHCMD("$HOME/.local/share/desktop-scripts/wifi") },
-  { MODKEY|ShiftMask,             XK_space,  spawn,          { .v = dmenucmd } },
+  { MODKEY|ShiftMask,             XK_space,  spawn,          SHCMD("$HOME/.local/share/desktop-scripts/dmenu-run") },
   { MODKEY,                       XK_Return, spawn,          SHCMD("$TERMINAL") },
   { MODKEY,                       XK_e,      spawn,          SHCMD("$VISUAL") },
   { MODKEY,                       XK_b,      spawn,          SHCMD("$BROWSER") },
@@ -140,6 +144,7 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,             XK_c,      quit,           {1} },
   { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
   { 0,                            XF86XK_AudioMute,          spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl mute")    },
+  { 0,                            XF86XK_AudioMicMute,       spawn, SHCMD("$HOME/.local/share/desktop-scripts/microphone mute")    },
   { 0,                            XF86XK_AudioLowerVolume,   spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl down")    },
   { 0,                            XF86XK_AudioRaiseVolume,   spawn, SHCMD("$HOME/.local/share/desktop-scripts/volumectl up")      },
   { 0,                            XF86XK_MonBrightnessDown,  spawn, SHCMD("$HOME/.local/share/desktop-scripts/backlightctl down") },
